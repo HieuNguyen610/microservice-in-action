@@ -5,10 +5,10 @@ import hieu.userservice.dto.ResponseDto;
 import hieu.userservice.dto.UserDto;
 import hieu.userservice.entity.User;
 import hieu.userservice.repository.UserRepository;
+import hieu.userservice.service.ApiClient;
 import hieu.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RestTemplate restTemplate;
     private final WebClient webClient;
+    private final ApiClient apiClient;
 
     @Override
     public User saveUser(User user) {
@@ -38,11 +39,13 @@ public class UserServiceImpl implements UserService {
 //
 //        DepartmentDto departmentDto = responseEntity.getBody();
 
-        DepartmentDto departmentDto = webClient.get()
-                .uri("http://localhost:8081/api/departments/" + user.getDepartmentId())
-                .retrieve()
-                .bodyToMono(DepartmentDto.class)
-                .block();
+//        DepartmentDto departmentDto = webClient.get()
+//                .uri("http://localhost:8081/api/departments/" + user.getDepartmentId())
+//                .retrieve()
+//                .bodyToMono(DepartmentDto.class)
+//                .block();
+
+        DepartmentDto departmentDto = apiClient.getDepartmentById(Long.valueOf(user.getDepartmentId()));
 
         return ResponseDto.builder()
                 .user(userDto)
