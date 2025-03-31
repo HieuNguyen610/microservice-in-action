@@ -1,10 +1,10 @@
-package hieu.microserviceinaction;
+package hieu.userservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MicroserviceInActionApplicationTests {
+class UserServiceApplicationTests {
 
     @Test
     void contextLoads() {
